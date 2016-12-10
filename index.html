@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Painter</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="system/LAB.min.js"></script>
+    <script>
+
+        $LAB
+        		.script('system/Vector2.js').wait()
+        		.script('system/Canvas2D.js').wait()
+        		.script('system/Sound.js').wait()
+
+        		.script('system/Keys.js').wait()
+        		.script('system/Colors.js').wait()
+                .script('input/Keyboard.js').wait()
+                .script('input/Mouse.js').wait()
+                
+				.script('system/Game.js').wait()
+
+				.script('elements/GameObject.js').wait()
+                .script('GameWorld.js').wait()
+
+                .script('app.js').wait(function () {
+                    Game.startup("gameArea", "gameCanvas", 1440, 1080);
+                });
+
+    </script>
+</head>
+<body>
+	<div id="gameArea">
+		<canvas id="gameCanvas" width="800" height="480"></canvas>
+	</div>
+</body>
+</html>
