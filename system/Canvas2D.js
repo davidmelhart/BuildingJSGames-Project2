@@ -3,6 +3,7 @@
 function Canvas2D_Singleton () {
 	this._canvas = null;
 	this._canvasContext = null;
+    this._canvasOffset = Vector2.zero;
 }
 
 Canvas2D_Singleton.prototype.init = function (area, canvas) {
@@ -40,12 +41,28 @@ Canvas2D_Singleton.prototype.resize = function () {
 
     canvas.width = newWidth;
     canvas.height = newHeight;
+
+    var offset = Vector2.zero;
+    if (canvas.offsetParent) {
+        do {
+            offset.x += canvas.offsetLeft;
+            offset.y += canvas.offsetTop;
+        } while ((canvas = canvas.offsetParent));
+    }
+    Canvas2D._canvasOffset = offset;
 };
 
 Object.defineProperty(Canvas2D_Singleton.prototype, 'scale', 
     {
         get : function () {
             return new Vector2(this._canvas.width / Game.size.x, this._canvas.height / Game.size.y);
+        }
+    });
+
+Object.defineProperty(Canvas2D_Singleton.prototype, "offset",
+    {
+        get: function () {
+            return this._canvasOffset;
         }
     });
 
