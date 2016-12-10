@@ -14,6 +14,9 @@ PainterGameWorld.prototype.update = function (delta) {
 
 PainterGameWorld.prototype.draw = function () {
     Canvas2D.drawImage(sprites.background);
+
+    //TEST MOUSE POS
+    Canvas2D.drawImage(sprites.glitter, Mouse._position,0,1,new Vector2(18,20))
 };
 
 PainterGameWorld.prototype.reset = function () {

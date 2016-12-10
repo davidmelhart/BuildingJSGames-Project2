@@ -14,6 +14,9 @@ Game.assetLoader = function () {
 
     sprites.background = loadSprite("spr_background.jpg");
 
+    //TEST MOUSE POS
+    sprites.glitter = loadSprite("spr_glitter.png");
+
 };
 
 Game.init = function () {

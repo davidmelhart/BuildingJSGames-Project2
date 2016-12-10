@@ -12,7 +12,9 @@ function Mouse_Singleton() {
 }
 
 Mouse_Singleton.prototype.reset = function () {
-    this.leftPressed = false;
+    this._left.pressed = false;
+    this._middle.pressed = false;
+    this._right.pressed = false;
 };
 
 function handleMouseMove(event) {
@@ -23,21 +25,36 @@ function handleMouseMove(event) {
     var MouseY = (event.pageY - canvasOffset.y) / canvasScale.y;
 
     Mouse._position = new Vector2(MouseX, MouseY);
-
-    //Mouse.position = new Vector2( event.pageX - Canvas2D._canvas.offsetLeft, event.pageY - Canvas2D._canvas.offsetTop );
 }
 
-function handleMouseDown(evt) {
-    if (evt.which === 1) {
-        if (!Mouse.leftDown)
-            Mouse.leftPressed = true;
-        Mouse.leftDown = true;
+function handleMouseDown(event) {
+    handleMouseMove(event);
+
+    if (event.which === 1) {
+        if (!Mouse._left.down)
+            Mouse._left.pressed = true;
+        Mouse._left.down = true;
+    } else if (event.which === 2) {
+        if (!Mouse._middle.down)
+            Mouse._middle.pressed = true;
+        Mouse._middle.down = true;
+    } else if (event.which === 3) {
+        if (!Mouse._right.down)
+            Mouse._right.pressed = true;
+        Mouse._right.down = true;
     }
 }
 
-function handleMouseUp(evt) {
-    if (evt.which === 1)
-        Mouse.leftDown = false;
+function handleMouseUp(event) {
+    handleMouseMove(event);
+
+    if (event.which === 1) {
+        Mouse._left.down = false;
+    } else if (event.which === 2) {
+        Mouse._middle.down = false;
+    } else if (event.which === 3) {
+        Mouse._right.down = false;
+    }
 }
 
 var Mouse = new Mouse_Singleton();
