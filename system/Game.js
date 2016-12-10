@@ -10,10 +10,17 @@ window.requestAnimationFrame =  window.requestAnimationFrame ||
                                 };
 
 function Game_Singleton () {
-	this.size = undefined;
+	this._size = undefined;
 	this.gameWorld = undefined;
 	this.spritesLoading = 0;
 }
+
+Object.defineProperty(Game_Singleton.prototype, "size", 
+	{
+		get : function () {
+			return this._size;
+		}
+	});
 
 //Starts the Game by calling in the assets and the loading loop
 Game_Singleton.prototype.startup = function (area, canvas, x, y) {
