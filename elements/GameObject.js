@@ -50,3 +50,7 @@ GameObject.prototype.draw = function () {
 GameObject.prototype.update = function (delta) {
 	this.position.addTo(this.velocity.multiply(delta));
 };
+
+GameObject.prototype.handleInput = function (delta) {
+	
+};

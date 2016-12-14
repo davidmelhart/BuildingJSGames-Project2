@@ -49,3 +49,14 @@ GameObjectGrid.prototype.addAt = function (gameobject, row, col) {
 	gameobject.parent = this;
 	gameobject.position = new Vector2(col * this.cellWidth, row * this.cellHeight);
 };
+
+GameObjectGrid.prototype.getAnchorPosition = function (gameobject) {
+    var l = this._gameObjects.length;
+    for (var i = 0; i < l; ++i)
+        if (this._gameObjects[i] === gameobject) {
+            var row = Math.floor(i / this.columns);
+            var col = i % this.columns;
+            return new Vector2(col * this.cellWidth, row * this.cellHeight);
+        }
+    return Vector2.zero;
+};
