@@ -11,6 +11,8 @@ function SpriteGameObject (sprite, layer, scale) {
 	this.scale = scale;
 }
 
+SpriteGameObject.prototype = Object.create(GameObject.prototype);
+
 Object.defineProperty(SpriteGameObject.prototype, 'center', {
 		get: function () {
 			return new Vector2(this.sprite.width/2, this.sprite.height/2);

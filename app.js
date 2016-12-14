@@ -1,5 +1,6 @@
 "use strict";
 
+var ID = {};
 var sprites = {};
 var sounds = {};
 
@@ -23,6 +24,9 @@ Game.assetLoader = function () {
 };
 
 Game.init = function () {
+    
+    ID.layerBackground = 1;
+    ID.layerObjects = 20;
 
     // create the game world
     Game.gameWorld = new JewelGameWorld();

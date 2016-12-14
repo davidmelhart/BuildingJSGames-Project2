@@ -1,17 +1,32 @@
 "use strict";
 
-function JewelGameWorld () {
-    this.score = 0;
+function JewelGameWorld (layer) {
+    GameObjectList.call(this, layer);
+    this.add(new SpriteGameObject(sprites.background, ID.layerBackground));
     this.rows = 10;
     this.columns = 5;
+
+    var grid = new JewelGrid(this.rows, this.columns, ID.layerObjects);
+    grid.position = new Vector2(85, 150);
+    grid.cellWidth = 85;
+    grid.cellHeight = 85;
+    this.add(grid);
+
+    for (var i = 0; i < this.rows * this.columns; i++) {
+        grid.add(new Jewel());
+    }
+/*
     this.grid = new Array(this.rows*this.columns);
 
     for (var i = 0; i < this.rows * this.columns; i++) {
         var random = Math.floor(Math.random()*3) + 1;
         this.grid[i] = sprites["singleJewel" + random];
     }
+*/
 }
 
+JewelGameWorld.prototype = Object.create(GameObjectList.prototype);
+/*
 JewelGameWorld.prototype.getGridValue = function (x, y) {
     var index = y * this.columns + x;
     return this.grid[index];
@@ -35,6 +50,17 @@ JewelGameWorld.prototype.moveRowDown = function () {
     }
 }
 
+JewelGameWorld.prototype.moveLeft = function(selectRow) {
+    var firstObject = this.getGridValue(0, selectRow);
+    for (var x = 1; x < this.columns; x++) {
+
+        this.setGridValue(x-1, selectRow, this.grid[x])
+        //console.log(this.grid[x])
+    }
+    this.setGridValue(4, selectRow, firstObject)
+}
+*/
+
 JewelGameWorld.prototype.handleInput = function (delta) {
 
 };
@@ -42,7 +68,14 @@ JewelGameWorld.prototype.handleInput = function (delta) {
 JewelGameWorld.prototype.update = function (delta) {
 
 };
+
 JewelGameWorld.prototype.draw = function () {
+    
+    for (var i = 0; i < this._gameObjects.length; i++) {
+        this._gameObjects[i].draw();
+    }
+
+    /*
     Canvas2D.drawImage(sprites.background);
 
     for (var row = 0; row < this.rows; row++) {
@@ -51,13 +84,13 @@ JewelGameWorld.prototype.draw = function () {
             Canvas2D.drawImage(this.getGridValue(col, row), position);
         }
     }
-
+    */
     //TEST MOUSE POS
     Canvas2D.drawImage(sprites.glitter, Mouse._position,0,1,new Vector2(18,20))
 };
 
 JewelGameWorld.prototype.reset = function () {
-   this.score = 0;
+   
 };
 
 JewelGameWorld.prototype.isOutsideWorld = function (element) {

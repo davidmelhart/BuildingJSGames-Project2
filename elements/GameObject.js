@@ -19,6 +19,30 @@ Object.defineProperty(GameObject.prototype, 'worldPosition',
 		}
 	});
 
+Object.defineProperty(GameObject.prototype, "visible",
+    {
+        get: function () {
+            if (this.parent === null)
+                return this._visible;
+            else
+                return this._visible && this.parent.visible;
+        },
+
+        set: function (value) {
+            this._visible = value;
+        }
+    });
+
+Object.defineProperty(GameObject.prototype, "root",
+    {
+        get: function () {
+            if (this.parent === null)
+                return this;
+            else
+                return this.parent.root;
+        }
+    });
+
 GameObject.prototype.draw = function () {
 
 };
